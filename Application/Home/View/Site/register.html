@@ -1,0 +1,293 @@
+
+<extend name="Common/base"/>
+<block name="script">
+
+</block>
+<block name="link">
+    <!--<div>css资源</div>-->
+</block>
+<block name="content">
+    <div class="minheight">
+        <div class="register_header">
+            <div class="register">
+                <h1 class="logo register_logo">
+                    <!--<a href="__MODULE__/" class="logo_tit_lk">52招聘</a>-->
+                    <a href="__MODULE__/" class="logo_tit_lk">
+                        <img alt="logo" title="52招聘" src="http://imgs.52jiaoshi.com/logo20170522.svg" style="width: 184px;height: 50px;"/>
+                        52招聘
+                    </a>
+                    <span class="register_tit">单位注册</span>
+                </h1>
+                <div class="have">已有账号&nbsp;<a href="__URL__/login.html" class="login">直接登录</a> </div>
+            </div>
+        </div>
+        <div id="register" class="certification_form register">
+            <div class="resets_line">
+                <input type="text"  onblur="checkMobileExist(this)" class="HDInput1 yz" id="mobile" placeholder="请输入手机号">
+                <span class="no_active"></span>
+                <p class="err"></p>
+            </div>
+            <div class="resets_line"  id="captcha-container">
+                <input type="text" name="verify" id="captcha-text" class="captcha-text yz"  onblur="codechange()" onkeyup="if(this.value.length>4){this.value=this.value.substr(0,4)};this.value=this.value.replace(/[^\d]/g,'');" placeholder="证明你不是机器人"  />
+                <img  class="left15" src="{:U(verify)}" alt="验证码" title="点击刷新" onClick="this.src=this.src+'?'+Math.random()" />
+                <p class="err"></p>
+            </div>
+            <div class="resets_line" >
+                <input type="text"  onblur="checkVerifyCode()" placeholder="短信验证码" id="verifycode" class="HuoQuX2 yz" style="width: 200px">
+                <input type="button"  class="HuoQuX " value="获取验证码" onclick="get_mobile_code()" id="zphone"  >
+                <p class="err"></p>
+            </div>
+
+            <div class="resets_line" >
+                <input type="password"  onblur="checkPass()"  name="" class="HDInput1 yz" id="pwd1" placeholder="请输入6-16位数字或字母密码">
+                <span class="no_active"></span>
+                <p class="err"></p>
+            </div>
+            <div class="resets_line">
+                <input type="password"  onblur="checkConPass()"  name="" class="HDInput1 yz" id="pwd2" placeholder="请确认密码" onkeyup="EnterKeyCode(this)">
+                <span class="no_active"></span>
+                <p class="err"></p>
+            </div>
+            <div onclick="checkReg(this)" class="address_sub">注册</div>
+            <p class="tip" style="margin-top: 10px;text-align: center;">
+                点击注册 即代表您同意<a href="__APP__/Business/Site/privacy" title="52招聘用户协议">52招聘用户协议</a>
+            </p>
+        </div>
+    </div>
+</block>
+<block name="css">
+    <style>
+        .err{margin-left: 0;}
+        .header{display: none;}
+        .header_bar{display: none;}
+        #footer{display: none;}
+        .tip a{color: #3eccb3;}
+    </style>
+</block>
+<block name="js">
+    <script type="text/javascript">
+        $(function(){
+            $(".minheight").css("min-height",document.documentElement.clientHeight);
+            //清空本文本框的值
+            $(".no_active").click(function(){
+                $(this).prev().val("");
+                $(this).hide();
+            });
+            $("input").on("focus",function(){
+                $(".no_active").css("display","none");
+                $(this).siblings(".no_active").css("display","block")
+            });
+            $(".certification_form .yz").keyup(function(){
+                $(this).siblings("p").html("").hide();
+                $(this).css("border","1px solid #3eccb3")
+            });
+            $(".certification_form .yz").blur(function(){
+                if (this.value == "" || this.value == " ") {
+                    $(this).siblings("p").show().html("该项不能为空！");
+                    $(this).css("border","1px solid #fe6b49");
+                    return false
+                }else{
+                    if($(this).siblings("p").html()!=""){
+                        $(this).css("border","1px solid #fe6b49")
+                    }else {
+                        $(this).css("border","1px solid #eee")
+                    }
+                }
+            });
+        });
+
+
+        function codechange(){
+            var code = $("#captcha-text").val();
+            if($.trim(code)==""){
+                $("#captcha-text").siblings("p").show().html("图片验证码还没有填！");
+                return false;
+            }
+            return true;
+        }
+        function check_mobile(){
+            var u=$("#mobile").val();
+            if(u.length!=11){
+                $("#mobile").siblings("p").show().html("手机号码输入不对！");
+                return false;
+            }
+            var reg = /^0?1[3|4|5|7|8][0-9]\d{8}$/;
+            if (!reg.test(u)){
+                $("#mobile").siblings("p").show().html("手机号码输入不对！");
+                return false;
+            }
+            return true;
+        }
+        function checkMobileExist(){
+            var u=$("#mobile").val();
+            if(u.length!=11){
+                $("#mobile").siblings("p").show().html("手机号码输入不对！");
+                return false;
+            }
+            var reg = /^0?1[3|4|5|7|8][0-9]\d{8}$/;
+            if (!reg.test(u)){
+                $("#mobile").siblings("p").show().html("手机号码输入不对！");
+                return false;
+            }
+//        var dataString ='mobile='+u;
+            var s = false;
+            $.ajax({
+                type: "post",
+                url: "__URL__/checkMobileExist",
+                data:{mobile:u},
+                async:false,
+                dataType:"json",
+                success:function(data){
+                    if(data.code == 411){
+                        s=true;
+                    }else{
+                        $("#mobile").siblings("p").show().html(data.msg);
+                    }
+                }
+            });
+            return s;
+        }
+        function get_mobile_code(){
+            var code = $("#captcha-text").val();
+            if($.trim(code)==""){
+                $("#captcha-text").siblings("p").show().html("图片验证码还没有填！");
+                return false;
+            }
+            var u=$("#mobile").val();
+            if($.trim(u)==""){
+                $("#mobile").siblings("p").show().html("手机号码还没有填！");
+                return false;
+            }
+            $.post('__URL__/sms',{mobile:jQuery.trim($('#mobile').val()),code: $.trim(code),type:1},function(data){
+                if(data.code == 200){
+//                $("#verifycode").siblings("p").show().html(jQuery.trim(unescape(data.msg))).css("color","#cc0000")
+                    RemainTime();
+                }else if(data.code == 201){
+                    $("#captcha-text").css("border","1px solid #fe6b49");
+                    $("#captcha-text").siblings("p").show().html(jQuery.trim(unescape(data.msg))).css("color","#cc0000")
+                    return false;
+                }
+            });
+        }
+        var iTime = 59;
+        var Account;
+        function RemainTime(){
+            document.getElementById('zphone').disabled = true;
+            var iSecond,sSecond="",sTime="";
+            if (iTime >= 0){
+                iSecond = parseInt(iTime%60);
+                iMinute = parseInt(iTime/60);
+                if (iSecond >= 0){
+                    if(iMinute>0){
+                        sSecond = iMinute + "分" + iSecond + "秒";
+                    }else{
+                        sSecond = iSecond + "秒";
+                    }
+                }
+                sTime=sSecond;
+                if(iTime==0){
+                    clearTimeout(Account);
+                    sTime='获取验证码';
+                    iTime = 59;
+                    document.getElementById('zphone').disabled = false;
+                }else{
+                    Account = setTimeout("RemainTime()",1000);
+                    iTime=iTime-1;
+                }
+            }else{
+                sTime='没有倒计时';
+            }
+            document.getElementById('zphone').value = sTime;
+            if (sTime == '获取验证码') {
+                $('#zphone').css('background','#3eccb3');
+            }else{
+                $('#zphone').css('background','#ccc');
+            }
+        }
+        function checkPass(){
+            var p=$("#pwd1").val();
+            if(p.length<6){
+                $("#pwd1").siblings("p").show().html("请输入6-16位数字或字母密码！");
+                return false;
+            }
+            return true;
+        }
+        function checkConPass(obj){
+            var p=$("#pwd1").val();
+            var p2=$("#pwd2").val();
+
+            if(p2!=p){
+                $("#pwd2").siblings("p").show().html("两次输入密码不一致！");
+                return false;
+            }
+            if(p2.length<6){
+                $("#pwd2").siblings("p").show().html("请输入6-16位数字或字母密码！");
+                return false;
+            }
+            return true;
+
+        }
+        function checkVerifyCode(){
+            var v=$("#verifycode").val();
+            if(v.length!=4){
+                $("#verifycode").siblings("p").show().html("您的验证码输错了！");
+                return false;
+            }
+            return true;
+        }
+        function checkReg(obj){
+            if(!Cheak_TextVal(obj)) {
+                return false;
+            }
+            if(codechange() && check_mobile() && checkPass() && checkConPass()){
+                var u=$("#mobile").val();
+                var p=$("#pwd1").val();
+                var v=$("#verifycode").val();
+                $.ajax({
+                    type: "post",
+                    url: "__URL__/register",
+                    data:{
+                        user_mobile:u,
+                        user_pwd:p,
+                        mobile_code:v
+                    },
+                    dataType:"json",
+                    success:function(data){
+                        if(data.code == 201){
+                            $("#verifycode").css("border","1px solid #fe6b49");
+                            $('#verifycode').siblings("p").show().html(data.msg);
+                        }else if(data.code == 200){
+                            window.location.href = "__MODULE__/Audit/index";
+                        };
+                    }
+                });
+            }else{
+                return false;
+            }
+        }
+        function EnterKeyCode(obj){
+            if(window.event.keyCode == 13){
+                checkReg(obj);
+            }
+        }
+        //验证
+        function Cheak_TextVal(obj){
+            var $cheak = $(obj).parents(".certification_form").find(".yz");
+            var isok = true;
+            $cheak.each(function(){
+                if (this.value == "" || this.value == " ") {
+                    $(this).siblings("p").show().html("该项不能为空！");
+                    $(this).css("border","1px solid #ff6b49");
+                    if (isok){
+                        //                $(this).focus();
+                        isok = false;
+                    }
+                }
+            });
+            return isok;
+        }
+    </script>
+</block>
+
+
+

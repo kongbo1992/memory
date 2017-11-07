@@ -2,6 +2,9 @@
 // 本类由系统自动生成，仅供测试用途
 namespace Home\Controller;
 use Think\Controller;
+use Home\Model\LoginModel;
+//use Common\Business\OrgEvent;
+//use Common\Common\SendRdyxMsg;
 class SiteController extends CommonController {
     public function login(){
         if($this->_isLogin()){
@@ -11,7 +14,7 @@ class SiteController extends CommonController {
             redirect(U('Index/index'));
         }
         if (IS_POST) {
-            $login = D('BsLogin');
+            $login = D('Login');
             if (!$data = $login->create()) {
                 $this->ajaxReturn(['code'=>201,'msg'=>$login->getError()]);
             }

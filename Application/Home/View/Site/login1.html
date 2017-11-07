@@ -1,0 +1,136 @@
+<extend name="Common/base"/>
+<block name="script">
+
+</block>
+<block name="link">
+    <!--<div>css资源</div>-->
+</block>
+<block name="content">
+    <div class="minheight">
+        <div class="register_header">
+            <div class="register">
+                <h1 class="logo register_logo">
+                    <a href="__MODULE__/" class="logo_tit_lk">
+                        <img alt="logo" title="52招聘" src="http://imgs.52jiaoshi.com/logo20170522.svg" style="width: 184px;height: 50px;"/>
+                        52招聘
+                    </a>
+                </h1>
+            </div>
+        </div>
+        <div class="login ">
+            <div class="login_img l_float">
+                <a href="javascript:void(0)">
+                    <img src="/Resource/Business/Images/login_banner.jpg" alt="企业登录" style="width: 620px;height: 384px;">
+                </a>
+            </div>
+            <div class="login_r">
+                <p style="font-size: 24px;text-align: center;line-height:68px;color: #39bfa7; border-bottom: 1px solid #eee;">登录</p>
+                <div style="padding: 40px 30px 0">
+                    <div class="resets_line mobile_line" style="min-height: 60px">
+                        <input type="text" class="HDInput1"  placeholder="请输入手机号" id="mobile" >
+                        <span class="no_active"></span>
+                        <p class="err mobile_err"></p>
+                    </div>
+                    <div class="resets_line">
+                        <input  type="password" onkeyup="EnterKeyCode()"  class="HDInput1 password1" placeholder="请输入密码" id="pwd" utocomplete="off"  >
+                        <span class="no_active"></span>
+                        <p class="err"></p>
+                    </div>
+                    <div class="check" style="">
+                        <a href="__URL__/forget_pwd.html">忘记密码</a>
+                    </div>
+                    <div class="address_sub HdengLuSX" onclick="checkLogin()">登录</div>
+                    <div style="display:none;" class="HDdui2 light-box" id="err"></div>
+                    <div class="choose">没有账号？<a href="__URL__/register.html">立即注册</a> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="css">
+    <style>
+        .err{margin-left: 0;}
+        .header{display: none;}
+        .header_bar{display: none;}
+    </style>
+</block>
+<block name="js">
+    <script type="text/javascript">
+        $(function(){
+            $(".minheight").css("min-height",document.documentElement.clientHeight);
+            //清空本文本框的值
+            $(".no_active").click(function(){
+                $(this).prev().val("");
+                $(this).hide();
+            });
+            $("input").on("focus",function(){
+                $(".no_active").css("display","none")
+                $(this).siblings(".no_active").css("display","block")
+            })
+            $(".login input").keyup(function(){
+                $(this).siblings("p").html("").hide();
+                $(this).css("border","1px solid #3eccb3")
+            });
+            $(".login input").blur(function(){
+                if (this.value == "" || this.value == " ") {
+                    $(this).siblings("p").show().html("该项不能为空！");
+                    $(this).css("border","1px solid #fe6b49");
+                    return false
+                }else{
+                    if($(this).siblings("p").html()!=""){
+                        $(this).css("border","1px solid #fe6b49")
+                    }else {
+                        $(this).css("border","1px solid #eee")
+                    }
+                }
+            });
+        });
+
+
+        function checkLogin(){
+            var u=$("#mobile").val();
+            var p=$("#pwd").val();
+            if(u==""){
+                $("#mobile").siblings('.err').show().html('请输入手机号');
+                $("#mobile").css("border","1px solid #ff6b49");
+                return false;
+            }
+            if(p==""){
+                $("#pwd").siblings('.err').show().html('请输入密码');
+                $("#pwd").css("border","1px solid #ff6b49");
+                return false;
+            }
+            if(u.length!=11){
+                $("#mobile").siblings('.err').show().html('手机号输入错误');
+                $("#mobile").css("border","1px solid #ff6b49");
+                return false;
+            }
+            var reg = /^0?1[3|4|5|7|8][0-9]\d{8}$/;
+            if (!reg.test(u)){
+                $("#mobile").siblings('.err').show().html('手机号输入错误');
+                $("#mobile").css("border","1px solid #ff6b49");
+                return false;
+            }
+            $.ajax({
+                type: "post",
+                url: "__URL__/login",
+                data:{user_mobile:u,user_pwd:p},
+                success:function(data){
+                    if(data.code == 200){
+                        window.location.href="__MODULE__/Index/index";
+                    }else if(data.code == 201){
+                        $("#pwd").css("border","1px solid #ff6b49");
+                        $("#pwd").siblings('.err').show().html(data.msg);
+                    }
+                }
+            });
+            return false;
+        }
+        function EnterKeyCode(){
+            if(window.event.keyCode == 13){
+                checkLogin();
+            }
+        }
+    </script>
+</block>
+

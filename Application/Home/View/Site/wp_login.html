@@ -1,0 +1,106 @@
+
+        <div class="minheight">
+            <h1 class="logo" style="height: 50px;">
+                
+            </h1>
+            <div class="login ">
+                <div class="login_img l_float">
+                    <a>
+                        <img src="/Resource/Business/Images/wp_login.jpg">
+                    </a>
+                    
+                </div>
+                <div class="login_r">
+                    <p style="padding: 10px 0;color: #555;font-size: 18px;">登录</p>
+                    <div class="resets_line">
+                        <input type="text" class="HDInput1" onfocus="javascript:$('#err').hide();"onfocus="javascript:$('.no_active').show();" placeholder="请输入手机号" id="mobile" >
+                        <!--placeholder="用户名/手机号/邮箱" -->
+                        <span class="no_active"></span>
+                    </div>
+                    <div class="resets_line">
+                        <input  type="password" onkeyup="EnterKeyCode()" onfocus="javascript:$('#err').hide();" class="HDInput1 password1" placeholder="请输入密码" id="pwd" utocomplete="off"  >
+                        <span class="no_active"></span>
+                    </div>
+
+                    <div class="address_sub HdengLuSX" onclick="checkLogin()">登录</div>
+
+                    <div style="display:none;" class="HDdui2 light-box" id="err"></div>
+                    <div class="choose"><a href="forget_pwd.html">忘记密码</a><a style="padding: 0 1.2rem;">|</a><a href="register.html">立即注册</a> </div>    
+                </div>
+            </div>
+            
+            <!--<div class="honor">-->
+                <!--<p><a href="../enterprise/login.html">企业登录</a></p>-->
+            <!--</div>-->
+        </div>
+<script type="text/javascript">
+    $(function(){
+        //清空本文本框的值
+        $(".no_active").click(function(){
+            $(this).prev().val("");
+            $(this).hide();
+        });
+        $("input").on("focus",function(){
+            $(".no_active").css("display","none")
+            $(this).siblings(".no_active").css("display","block")
+        })
+
+    });
+
+
+    function checkLogin(){
+        var u=$("#mobile").val();
+        var p=$("#pwd").val();
+        if(u==""){
+            $('#err').html('亲，还没有输入用户名哦！');
+            $('#err').show();
+            setTimeout(function () { $('#err').hide(); }, 2000);
+            return false;
+        }
+        if(p==""){
+            $('#err').html('亲，您没有请输入密码哦！');
+            $('#err').show();
+            setTimeout(function () { $('#err').hide(); }, 2000);
+            return false;
+        }
+        if(u.length!=11){
+            $('#err').html('啊哦，用户名输入错误啦！');
+            $('#err').show();
+            setTimeout(function () { $('#err').hide(); }, 2000);
+            return false;
+        }
+        var reg = /^0?1[3|4|5|7|8][0-9]\d{8}$/;
+        if (!reg.test(u)){
+            $('#err').html('啊哦，用户名输入错误啦！');
+            $('#err').show();
+            setTimeout(function () { $('#err').hide(); }, 2000);
+            return false;
+        }
+        $.ajax({
+            type: "post",
+            url: "__URL__/login",
+            data:{user_mobile:u,user_pwd:p},
+            success:function(data){
+                if(data.code == 200){
+                    window.location.href="__MODULE__/Index/index";
+                }else if(data.code == 201){
+                    $('#err').html(data.msg);
+                    $('#err').show();
+                    setTimeout(function () { $('#err').hide(); }, 2000);
+                }
+            }
+        });
+        return false;
+    }
+    function EnterKeyCode(){
+        if(window.event.keyCode == 13){
+            checkLogin();
+        }
+    }
+</script>
+<style type="text/css">
+    .header{display: none;}
+    .header_bar{display: none;}
+    #footer{display: none;}
+    body{background: #fff;}
+</style>
