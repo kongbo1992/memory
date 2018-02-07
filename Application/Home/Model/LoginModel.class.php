@@ -23,7 +23,7 @@ class LoginModel extends Model {
         array('user_pwd', 'require', '登录密码不能为空！',1), // 默认情况下用正则进行验证
 //        array('verify', 'verify_check', '验证码错误', 0, 'function'), // 判断验证码是否正确
         array('user_pwd', '/^([a-zA-Z0-9@*#]{6,22})$/', '密码格式不正确,请重新输入！', 0),
-        array('user_mobile', '/^1[34578]\d{9}$/', '手机号码格式不正确', 0), // 正则表达式验证手机号码
+//        array('user_mobile', '/^1[34578]\d{9}$/', '手机号码格式不正确', 0), // 正则表达式验证手机号码
     );
 
     /**

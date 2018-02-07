@@ -15,10 +15,6 @@
         <link rel="stylesheet" href="/Public/css/sitecss/reset.css">
         <link rel="stylesheet" href="/Public/css/sitecss/supersized.css">
         <link rel="stylesheet" href="/Public/css/sitecss/style.css">
-        <script src="__JS_/sitejs/jquery-1.8.2.min.js"></script>
-        <script src="__JS_/sitejs/supersized.3.2.7.min.js"></script>
-        <script src="__JS_/sitejs/supersized-init.js"></script>
-        <script src="__JS_/sitejs/scripts.js"></script>
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
@@ -48,8 +44,10 @@
         <!--<div align="center">Collect from <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a></div>-->
 
         <!-- Javascript -->
-
-
+        <script src="/Public/js/sitejs/jquery-1.8.2.min.js"></script>
+        <script src="/Public/js/sitejs/supersized.3.2.7.min.js"></script>
+        <script src="/Public/js/sitejs/supersized-init.js"></script>
+        <script src="/Public/js/sitejs/scripts.js"></script>
     </body>
 
 </html>

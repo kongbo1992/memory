@@ -1,0 +1,65 @@
+<include file="Public:header" />
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?php echo $title ;?></title>
+    <link rel="stylesheet" href="__CSS__/bootstrap.min.css">
+    <link rel="stylesheet" href="__CSS__/flexslider.css">
+    <link rel="stylesheet" href="__CSS__/jquery.fancybox.css">
+    <link rel="stylesheet" href="__CSS__/main.css">
+    <link rel="stylesheet" href="__CSS__/responsive.css">
+    <link rel="stylesheet" href="__CSS__/animate.min.css">
+    <link rel="stylesheet" href="__CSS__/font-icon.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">-->
+</head>
+<style>
+    .personals_data{position: absolute;right: 130px;top: 60px;}
+</style>
+<body>
+<section class="banner" role="banner">
+    <header id="header">
+        <div class="header-content clearfix"> <a class="logo" href="index.html"><img src="__IMG__/logo.png" alt=""></a>
+            <nav class="navigation" role="navigation">
+                <ul class="primary-nav">
+                    <li><?php echo date("Y-m-d",time()) ;?></li>
+                    <li><a href="mainlto:hello@phdl.co">{$_SESSION['bsme']['nick_name']}（我们的记忆）</a></li>
+                </ul>
+            </nav>
+            <a href="#" class="nav-toggle">Menu<span></span></a>
+            <!--<div class="personals_data">-->
+                <!--<ul>-->
+                    <!--<li><a href="__MODULE__/User/myclass" title="我的课程" rel="nofollow">我的课程</a></li>-->
+                    <!--<li><a href="__MODULE__/User/myclass?grzl=grzl"  title="个人资料" rel="nofollow">个人资料</a></li>-->
+                    <!--<li><a href="__MODULE__/User/myclass?yhq=yhq"  title="我的优惠券" rel="nofollow">我的优惠券</a></li>-->
+                    <!--<li><a href="__MODULE__/User/myclass?dingdan=dingdan"  title="我的订单" rel="nofollow">我的订单</a></li>-->
+                    <!--<li><a href="__MODULE__/User/myclass?dizhi=dizhi"  title="收货地址" rel="nofollow">收货地址</a></li>-->
+                    <!--<li><a href="__MODULE__/User/logout" style="text-align: left;padding:0 0 0 46px;" class="last_btn"  title="退出" rel="nofollow">退出</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+
+        </div>
+    </header>
+</section>
+<!-- header top section -->
+{__CONTENT__}
+<!-- footer section -->
+
+<!-- JS FILES -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+<script src="__JS__/jquery.min.js"></script>
+<script src="__JS__/bootstrap.min.js"></script>
+<script src="__JS__/jquery.fancybox.pack.js"></script>
+<!--<script src="__JS__/retina.min.js"></script>-->
+<script src="__JS__/modernizr.js"></script>
+<script src="__JS__/main.js"></script>
+</body>
+</html>
+<include file="Public:footer" />

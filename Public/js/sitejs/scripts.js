@@ -1,6 +1,5 @@
 
 jQuery(document).ready(function() {
-
     $('.page-container form').submit(function(){
         var username = $(this).find('.username').val();
         var password = $(this).find('.password').val();
@@ -22,6 +21,20 @@ jQuery(document).ready(function() {
             });
             return false;
         }
+        $.ajax({
+            type: "post",
+            url: "login",
+            data:{user_mobile:username,user_pwd:password},
+            success:function(data){
+                if(data.code == 200){
+                    window.location.href="../Index/index";
+                }else if(data.code == 201){
+                    $("#pwd").css("border","1px solid #ff6b49");
+                    $("#pwd").siblings('.err').show().html(data.msg);
+                }
+            }
+        });
+        return false;
     });
 
     $('.page-container form .username, .page-container form .password').keyup(function(){

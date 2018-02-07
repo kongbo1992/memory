@@ -7,7 +7,7 @@ return array(
         '__CSS__' => '/Public/css', // 增加新的CSS类库路径替换规则
         '__IMG__' => '/Public/images', // 增加新的Image类库路径替换规则
         '__UPLOAD__' => '/Uploads', // 增加新的上传路径替换规则
-
     ),
-
+    'LAYOUT_ON' => true,
+    'LAYOUT_NAME'=>'layout',
 );

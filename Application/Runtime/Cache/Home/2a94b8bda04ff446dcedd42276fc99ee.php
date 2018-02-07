@@ -1,4 +1,5 @@
-<?php if (!defined('THINK_PATH')) exit();?><!doctype html>
+<?php if (!defined('THINK_PATH')) exit();?>
+<!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
@@ -6,33 +7,51 @@
 <html class="no-js" lang="">
 <!--<![endif]-->
 <head>
-<meta charset="utf-8">
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Adriya - Minimal, Creative, One Page Bootstrap Template</title>
-<link rel="stylesheet" href="/Public/css/bootstrap.min.css">
-<link rel="stylesheet" href="/Public/css/flexslider.css">
-<link rel="stylesheet" href="/Public/css/jquery.fancybox.css">
-<link rel="stylesheet" href="/Public/css/main.css">
-<link rel="stylesheet" href="/Public/css/responsive.css">
-<link rel="stylesheet" href="/Public/css/animate.min.css">
-<link rel="stylesheet" href="/Public/css/font-icon.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><?php echo $title ;?></title>
+    <link rel="stylesheet" href="/Public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/Public/css/flexslider.css">
+    <link rel="stylesheet" href="/Public/css/jquery.fancybox.css">
+    <link rel="stylesheet" href="/Public/css/main.css">
+    <link rel="stylesheet" href="/Public/css/responsive.css">
+    <link rel="stylesheet" href="/Public/css/animate.min.css">
+    <link rel="stylesheet" href="/Public/css/font-icon.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">-->
 </head>
+<style>
+    .personals_data{position: absolute;right: 130px;top: 60px;}
+</style>
 <body>
-<!-- header top section -->
 <section class="banner" role="banner">
-  <header id="header">
-    <div class="header-content clearfix"> <a class="logo" href="index.html"><img src="/Public/images/logo.png" alt=""></a>
-      <nav class="navigation" role="navigation">
-        <ul class="primary-nav">
-          <li><?php echo date("Y-m-d",time()) ;?></li>
-          <li><a href="mainlto:hello@phdl.co">我们的记忆</a></li>
-        </ul>
-      </nav>
-      <a href="#" class="nav-toggle">Menu<span></span></a> </div>
-  </header>
+    <header id="header">
+        <div class="header-content clearfix"> <a class="logo" href="index.html"><img src="/Public/images/logo.png" alt=""></a>
+            <nav class="navigation" role="navigation">
+                <ul class="primary-nav">
+                    <li><?php echo date("Y-m-d",time()) ;?></li>
+                    <li><a href="mainlto:hello@phdl.co"><?php echo ($_SESSION['bsme']['nick_name']); ?>（我们的记忆）</a></li>
+                </ul>
+            </nav>
+            <a href="#" class="nav-toggle">Menu<span></span></a>
+            <!--<div class="personals_data">-->
+                <!--<ul>-->
+                    <!--<li><a href="/index.php/Home/User/myclass" title="我的课程" rel="nofollow">我的课程</a></li>-->
+                    <!--<li><a href="/index.php/Home/User/myclass?grzl=grzl"  title="个人资料" rel="nofollow">个人资料</a></li>-->
+                    <!--<li><a href="/index.php/Home/User/myclass?yhq=yhq"  title="我的优惠券" rel="nofollow">我的优惠券</a></li>-->
+                    <!--<li><a href="/index.php/Home/User/myclass?dingdan=dingdan"  title="我的订单" rel="nofollow">我的订单</a></li>-->
+                    <!--<li><a href="/index.php/Home/User/myclass?dizhi=dizhi"  title="收货地址" rel="nofollow">收货地址</a></li>-->
+                    <!--<li><a href="/index.php/Home/User/logout" style="text-align: left;padding:0 0 0 46px;" class="last_btn"  title="退出" rel="nofollow">退出</a></li>-->
+                <!--</ul>-->
+            <!--</div>-->
+
+        </div>
+    </header>
 </section>
+<!-- header top section -->
+
+<!-- header top section -->
+
 <!-- header top section --> 
 <!-- header content section -->
 <section id="hero" class="section ">
@@ -53,6 +72,12 @@
     </div>
   </div>
 </section>
+
+<!--<form action="/index.php/Home/Index/upload" enctype="multipart/form-data" method="post" >-->
+  <!--<input type="text" name="name" />-->
+  <!--<input type="file" name="photo" />-->
+  <!--<input type="submit" value="提交" >-->
+<!--</form>-->
 <!-- header content section --> 
 <!-- portfolio grid section -->
 <section id="portfolio">
@@ -63,14 +88,16 @@
       </div>
     </div>
     <div class="row">
+      <?php foreach($data as $key => $val){ ?>
       <div class="col-sm-6 portfolio-item"> <a href="work-details.html" class="portfolio-link">
         <div class="caption">
           <div class="caption-content">
-            <h3>The Shape of Design</h3>
-            <h4>Branding/Graphic</h4>
+            <h3><?php echo $val['title'] ?></h3>
+            <h4><?php echo $val['content'] ?></h4>
           </div>
         </div>
-        <img src="/Public/images/portfolio/work-1.jpg" class="img-responsive" alt=""> </a> </div>
+        <img src="<?php echo $val['imgurl'] ?>" class="img-responsive" alt=""> </a> </div>
+      <?php } ?>
       <div class="col-sm-6 portfolio-item"> <a href="work-details.html" class="portfolio-link">
         <div class="caption">
           <div class="caption-content">
@@ -157,13 +184,16 @@
     </div>
   </div>
 </footer>
-<!-- footer section --> 
 
-<!-- JS FILES --> 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
+
+<!-- footer section -->
+
+<!-- JS FILES -->
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+<script src="/Public/js/jquery.min.js"></script>
 <script src="/Public/js/bootstrap.min.js"></script>
 <script src="/Public/js/jquery.fancybox.pack.js"></script>
-<script src="/Public/js/retina.min.js"></script>
+<!--<script src="/Public/js/retina.min.js"></script>-->
 <script src="/Public/js/modernizr.js"></script>
 <script src="/Public/js/main.js"></script>
 </body>

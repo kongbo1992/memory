@@ -1,38 +1,6 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js" lang="">
-<!--<![endif]-->
-<head>
-<meta charset="utf-8">
-<meta name="description" content="">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Adriya - Minimal, Creative, One Page Bootstrap Template</title>
-<link rel="stylesheet" href="__CSS__/bootstrap.min.css">
-<link rel="stylesheet" href="__CSS__/flexslider.css">
-<link rel="stylesheet" href="__CSS__/jquery.fancybox.css">
-<link rel="stylesheet" href="__CSS__/main.css">
-<link rel="stylesheet" href="__CSS__/responsive.css">
-<link rel="stylesheet" href="__CSS__/animate.min.css">
-<link rel="stylesheet" href="__CSS__/font-icon.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-</head>
-<body>
+
 <!-- header top section -->
-<section class="banner" role="banner">
-  <header id="header">
-    <div class="header-content clearfix"> <a class="logo" href="index.html"><img src="__IMG__/logo.png" alt=""></a>
-      <nav class="navigation" role="navigation">
-        <ul class="primary-nav">
-          <li><?php echo date("Y-m-d",time()) ;?></li>
-          <li><a href="mainlto:hello@phdl.co">我们的记忆</a></li>
-        </ul>
-      </nav>
-      <a href="#" class="nav-toggle">Menu<span></span></a> </div>
-  </header>
-</section>
+
 <!-- header top section --> 
 <!-- header content section -->
 <section id="hero" class="section ">
@@ -53,6 +21,12 @@
     </div>
   </div>
 </section>
+
+<!--<form action="__URL__/upload" enctype="multipart/form-data" method="post" >-->
+  <!--<input type="text" name="name" />-->
+  <!--<input type="file" name="photo" />-->
+  <!--<input type="submit" value="提交" >-->
+<!--</form>-->
 <!-- header content section --> 
 <!-- portfolio grid section -->
 <section id="portfolio">
@@ -63,14 +37,16 @@
       </div>
     </div>
     <div class="row">
+      <?php foreach($data as $key => $val){ ?>
       <div class="col-sm-6 portfolio-item"> <a href="work-details.html" class="portfolio-link">
         <div class="caption">
           <div class="caption-content">
-            <h3>The Shape of Design</h3>
-            <h4>Branding/Graphic</h4>
+            <h3><?php echo $val['title'] ?></h3>
+            <h4><?php echo $val['content'] ?></h4>
           </div>
         </div>
-        <img src="__IMG__/portfolio/work-1.jpg" class="img-responsive" alt=""> </a> </div>
+        <img src="<?php echo $val['imgurl'] ?>" class="img-responsive" alt=""> </a> </div>
+      <?php } ?>
       <div class="col-sm-6 portfolio-item"> <a href="work-details.html" class="portfolio-link">
         <div class="caption">
           <div class="caption-content">
@@ -157,14 +133,4 @@
     </div>
   </div>
 </footer>
-<!-- footer section --> 
 
-<!-- JS FILES --> 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> 
-<script src="__JS__/bootstrap.min.js"></script>
-<script src="__JS__/jquery.fancybox.pack.js"></script>
-<script src="__JS__/retina.min.js"></script>
-<script src="__JS__/modernizr.js"></script>
-<script src="__JS__/main.js"></script>
-</body>
-</html>
